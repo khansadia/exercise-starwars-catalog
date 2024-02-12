@@ -1,8 +1,9 @@
 
+
 const selectionList = document.querySelector('.selection-list');
-const swapi = "https://swapi.dev/api";
+const swapi = 'https://swapi.dev/api';
 
-
+// function to get peoples
 async function fetchPeople(filter){
     try {
         response = await fetch(swapi + filter);
@@ -12,9 +13,18 @@ async function fetchPeople(filter){
         console.log('Error: ', error);
     }
 }
-
-
-
+// Function to get planet Api
+let planetApi = '';
+async function fetchPlanet(planetApi){
+    try {
+        response = await fetch(planetApi);
+        planet = await response.json();
+        return planet;
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+}
+//  To show characters in Console
 let characters = [];
 fetchPeople('/people/').then((data) => {
     for(let x = 0; x < data.results.length; x++){
@@ -26,7 +36,7 @@ fetchPeople('/people/').then((data) => {
 
 console.log(characters)
 
-// which click on any 1 character in list
+// click on character in list
 const currentItemNum = document.querySelector('.current-item');
 const selection = document.querySelector('.selection');
 const charList = document.querySelector('.selection-list').children;
@@ -47,7 +57,7 @@ selection.addEventListener('click',(e) => {
         console.log('clicked on left arrow');
         for(let x = 0; x < charList.length; x++) {
             if(charList[x].selected && x > 0){
-                displayNextPrevCharData(charList[i - 1].listId);
+                displayNextPrevCharData(charList[x - 1].listId);
                 charList[x - 1].style.backgroundColor = 'var(--border)';
                 charList[x - 1].selected = true;
                 currentItemNum.innerText = charList[x - 1].listId + 1;
@@ -58,7 +68,7 @@ selection.addEventListener('click',(e) => {
     }else if(e.target.classList.contains('right')){
         console.log('clicked on right arrow');
         for(let x = 0; x < charList.length; x++) {
-            if(charList[x].selected && i < charList.length - 1){
+            if(charList[x].selected && x < charList.length - 1){
                 charList[x].style.backgroundColor = charList[x].bgc;
                 charList[x].selected = false;
                 charList[x + 1].style.backgroundColor = 'var(--border)';
@@ -70,40 +80,16 @@ selection.addEventListener('click',(e) => {
         }
     }
 });
-// function for getting planetApi 
-
-let planetApi = '';
-async function fetchPlanet(planetApi){
-    try {
-        response = await fetch(planetApi);
-        planet = await response.json();
-        return planet;
-    } catch (error) {
-        console.log('Error: ', error);
-    }
-}
-
-// This function will display planet Api
-function displayPlanetData(planetApi){
-    fetchPlanet(planetApi).then((planet) => {
-        console.log(planet);
-        document.querySelector('.planet-name').innerText = planet.name;
-        document.querySelector('.planet-rotation').innerText = 'Rotation period: ' + planet.rotation_period + ' hours';
-        document.querySelector('.planet-orbit').innerText = 'Orbital period: ' + planet.orbital_period + ' days';
-        document.querySelector('.planet-diameter').innerText = 'Diameter: ' + planet.diameter + ' kilometers';
-        document.querySelector('.planet-climate').innerText = 'Climate: ' + planet.climate;
-    });
-}
 
 // function will add elements for character list in dom
 function addCharactersToDom(){
-    for(let i = 0; i < characters.length; i++) {
+    for(let x = 0; x < characters.length; x++) {
         let person = document.createElement('div');
         person.classList.add('list-item');
-        person.listId = i;
+        person.listId = x;
         person.selected = false;
-        person.innerText = characters[i].name;
-        if(i % 2 === 0){
+        person.innerText = characters[x].name;
+        if(x % 2 === 0){
             person.bgc = 'var(--even-character)';
             person.style.backgroundColor = person.bgc;
             person.style.color = 'black';
@@ -116,8 +102,6 @@ function addCharactersToDom(){
         selectionList.appendChild(person);
     }
 }
-
-
 
 // function for setting character data in dom
 function displayCharacterData(e){
@@ -151,10 +135,7 @@ function displayNextPrevCharData(listId){
         displayPlanetData(planetApi);
     });
 }
-
-
-// Function to display palnet details
-
+// this function will display planet attributes details
 function displayPlanetData(planetApi){
     fetchPlanet(planetApi).then((planet) => {
         console.log(planet);
@@ -163,8 +144,9 @@ function displayPlanetData(planetApi){
         document.querySelector('.planet-orbit').innerText = 'Orbital period: ' + planet.orbital_period + ' days';
         document.querySelector('.planet-diameter').innerText = 'Diameter: ' + planet.diameter + ' kilometers';
         document.querySelector('.planet-climate').innerText = 'Climate: ' + planet.climate;
-        document.querySelector('.planet-gravity').innerText = 'Gravity: ' + planet.gravity;
         document.querySelector('.planet-terrain').innerText = 'Terrain: ' + planet.terrain;
+        document.querySelector('.planet-population').innerText = 'Population: ' + planet.population;
+       
     });
 }
 
