@@ -24,7 +24,7 @@ body {
     
 }
 
-.hero {
+.Hero {
     width: 100%;
     height: 480px;
     background-image: url('assets/starWar.webp');
@@ -32,7 +32,7 @@ body {
     border-radius: 20px 20px 0 0;
 }
 
-.title {
+.Title {
     width: 30%;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 63px;
