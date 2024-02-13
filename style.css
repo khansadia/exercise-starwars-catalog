@@ -11,7 +11,7 @@
 
 @font-face {
     font-family: 'Starwars';
-        src: url('assets/Starjedi.ttf');
+        src: url('assets/fontSTAR.ttf');
 }
 
 body {
@@ -29,7 +29,7 @@ body {
 }
 
 .hero {
-    height: 450px;
+    height: 430px;
     width: 100%;
     background-image: url('assets/starWar.webp');
     background-size: contain;
@@ -37,16 +37,13 @@ body {
 }
 
 .title {
-    width: 30%;
+    width: 31%;
     font-family: 'Starwars';
-    font-size: 64px;
-    text-align: center;
+    font-size: 68px;
+    text-align:justify;
+    
     text-shadow: 
-        3px 3px 2px rgb(202, 20, 20),
-        -3px -3px 2px rgb(202, 20, 20),
-        -3px -3px 2px rgb(202, 20, 20),
-        3px 3px 2px rgb(202, 20, 20)
-    ;
+        4px 3px 2px rgb(200, 24, 24);
     line-height: 130%;
     color: var(--border);
     position: relative;
@@ -54,7 +51,7 @@ body {
 }
 
 main {
-    height: 650px;
+    height: 750px;
     width: 100%;
     max-width: 1440px;
     margin: auto;
